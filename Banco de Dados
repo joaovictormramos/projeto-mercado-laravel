@@ -1,0 +1,14 @@
+create table packages(
+	id serial primary key not null,
+	package_name varchar(50) not null unique
+)
+
+
+delete from packages where package_name <> 's'
+
+create table stores(
+	id serial primary key not null,
+	store_name varchar(100) not null,
+	store_address varchar(255) not null,
+	constraint uc_store unique(store_name, store_address)
+)
