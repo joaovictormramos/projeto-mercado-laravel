@@ -1,0 +1,53 @@
+create table stores_products(
+	id serial primary key not null,
+	store_id integer not null,
+	product_id integer not null,
+	product_price numeric(6,2) not null,
+	foreign key (store_id) references stores(id)on delete cascade on update cascade,
+	foreign key (product_id) references products(id)on delete cascade on update cascade
+)
+
+select * from stocks_stores
+
+insert into stocks_stores (store_id) values (1)
+
+--select products registered in store
+SELECT prod.product_name, brand.brand_name, prod.product_description,
+prod.product_measurement, prod.product_unity_measurement, pack.package_name, 
+sec.section_name FROM products prod 
+JOIN brands brand ON brand.id = prod.brand_id
+JOIN packages pack ON pack.id = prod.package_id
+JOIN sections sec ON sec.id = prod.package_id
+JOIN stores_products sp ON sp.product_id = prod.id
+WHERE sp.store_id = 30
+
+INSERT  INTO stores_products (store_id, product_id, product_price) VALUES (30, 20, 4.60)
+
+selecione os produtos da tabela produtos
+que não estão cadastrados na loja = 30
+
+SELECT prod.product_name, brand.brand_name, prod.product_description,
+prod.product_measurement, prod.product_unity_measurement, pack.package_name, 
+sec.section_name FROM products prod 
+JOIN brands brand ON brand.id = prod.brand_id
+JOIN packages pack ON pack.id = prod.package_id
+JOIN sections sec ON sec.id = prod.package_id
+LEFT JOIN stores_products sp ON = sp.product_id prod.id AND sp.store_id = 30
+WHERE sp.product_id IS NULL;
+
+drop table stores_products
+
+select replace(product_measurement::text, '.', ',') from products
+
+SELECT prod.product_name, brand.brand_name, prod.product_description,
+REPLACE(prod.product_measurement::text, '.', ',') product_measurement , 
+prod.product_unity_measurement, pack.package_name, sec.section_name FROM products prod
+JOIN brands brand ON brand.id = prod.brand_id
+JOIN packages pack ON pack.id = prod.package_id
+JOIN sections sec ON sec.id = prod.section_id
+JOIN stores_products sp ON sp.product_id = prod.id 
+AND sp.product_id = ? AND sp.store_id = ?
+
+SELECT prod.product_name from products prod
+join stores_products sp on sp.product_id = prod.id
+and prod.id = 23 and sp.store_id = 32
