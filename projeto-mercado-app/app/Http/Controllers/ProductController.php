@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Section;
 use App\Models\Brand;
 use App\Models\Package;
 use App\Models\Product;
+use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    function getProducts()
+    public function getProducts()
     {
         $products = Product::orderBy('product_name')->get();
         return view('/admin/products', compact('products'));
     }
 
-    function formRegisterProduct() 
-    {   
+    public function formRegisterProduct()
+    {
         $product = new Product();
         $product->id = 0;
         $brands = Brand::all();
@@ -26,12 +27,23 @@ class ProductController extends Controller
         return view('/admin/register_product', compact('product', 'brands', 'sections', 'packages'));
     }
 
-    function registerProduct(Request $request)
+    public function registerProduct(Request $request)
     {
         if ($request->input('id') == 0) {
             $product = new Product();
         } else {
             $product = Product::find($request->input('id'));
+        }
+
+        if ($request->hasFile('product_img')) {
+            $img = $request->file('product_img');
+            $path = $img->store('public/images');
+            $arrayImg = explode('/', $path);
+            $fileName = end($arrayImg);
+            if ($product->product_img != "") {
+                Storage::delete("public/images/" . $product->product_img);
+            }
+            $product->product_img = $fileName;
         }
         $product->product_name = $request->input('name');
         $product->brand_id = $request->input('brand_id');
@@ -44,18 +56,21 @@ class ProductController extends Controller
         return redirect('/produtos');
     }
 
-    function formUpdateProduct($id)
+    public function formUpdateProduct($id)
     {
         $product = Product::find($id);
         $brands = Brand::all();
         $sections = Section::all();
         $packages = Package::all();
-        return view('/admin/update_product', compact('product', 'brands', 'sections', 'packages'));
+        return view('/admin/register_product', compact('product', 'brands', 'sections', 'packages'));
     }
 
-    function deleteProduct($id)
+    public function deleteProduct($id)
     {
         $product = Product::find($id);
+        if ($product->product_img != "") {
+            Storage::delete("public/images/" . $product->product_img);
+        }
         $product->delete();
         return redirect('/produtos');
     }

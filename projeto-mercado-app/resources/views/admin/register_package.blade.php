@@ -10,7 +10,7 @@
     <form action="/cadastrar-embalagem" method="post">
         @csrf
         <label for="name">Embalagem</label>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" value="{{$package->package_name}}">
 
         <button class="btn btn-primary">Cadastrar</button>
     </form>

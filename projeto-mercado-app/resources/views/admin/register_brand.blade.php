@@ -9,8 +9,17 @@
 <body>
     <form action="/cadastrar-marca" method="post">
         @csrf
+        <input type="hidden" name="id" value="{{$brand->id}}">
+
+        @if ($brand->brand_img != "")
+            <img src="/storage/images/{{$brand->brand_img}}" style="width: 70px" alt="">
+        @endif
+
         <label for="name">Marca</label>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" value="{{$brand->brand_name}}">
+
+        <label for="brand_image">Imagem</label>
+        <input type="file" name="brand_image" accept="image/*" id="">
 
         <button class="btn btn-primary">Cadastrar</button>
     </form>

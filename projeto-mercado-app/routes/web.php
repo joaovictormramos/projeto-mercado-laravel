@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\StoreProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,7 @@ Route::get('/', function () {
 });
 
 //Stores routes
-Route::get('/estabelecimentos', [StoreController::class, 'getStores']);
+Route::get('/estabelecimentos', [StoreController::class, 'getStores'])->name('stores');
 
 Route::get('/cadastrar-estabelecimento', [StoreController::class, 'formRegisterStore']);
 
@@ -96,3 +97,6 @@ Route::get('/excluir-embalagem/{id}', [PackageController::class, 'deletePackage'
 
 //Admin routes
 Route::get('/admin', [AdminController::class, 'index']);
+
+//User routes
+Route::get('/perfil', [UserController::class, 'profile']);

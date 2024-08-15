@@ -26,6 +26,7 @@
     @endforeach
     <input type="hidden" name="store_id" value="{{$id}}">
     <button class="btn btn-primary">Cadastrar</button>
+    <a href="/gerenciar-estoque/{{$id}}" class="btn btn-danger">Voltar</a>
     </form>
 </body>
 </html>

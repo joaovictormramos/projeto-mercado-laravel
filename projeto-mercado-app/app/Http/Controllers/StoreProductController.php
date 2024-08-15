@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\StoreProduct;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StoreProductController extends Controller
@@ -35,7 +35,7 @@ class StoreProductController extends Controller
     {
         $productsToRegisterAtStore = DB::select(
             "SELECT prod.id, prod.product_name, brand.brand_name, prod.product_description,
-            replace(prod.product_measurement::text, '.', ',') product_measurement ,
+            replace(prod.product_measurement::text, '.', ',') product_measurement,
             prod.product_unity_measurement, pack.package_name, sec.section_name FROM products prod
             JOIN brands brand ON brand.id = prod.brand_id
             JOIN packages pack ON pack.id = prod.package_id
@@ -65,7 +65,7 @@ class StoreProductController extends Controller
     //Displays the details of the selected product for updating
     public function fomrSetSetoreProduct($storeId, $productId)
     {
-        $product = DB::table('products')->select('products.product_name', 'brands.brand_name', 'products.product_description',
+        $product = DB::table('products')->select('products.product_img', 'products.product_name', 'brands.brand_name', 'products.product_description',
             DB::raw("REPLACE(products.product_measurement::text, '.', ',') as product_measurement"),
             'products.product_unity_measurement', 'packages.package_name', 'sections.section_name', 'stores_products.product_price',
             'stores_products.store_id', 'stores_products.product_id', 'stores_products.id')->join('brands', 'brands.id', '=',
@@ -77,7 +77,7 @@ class StoreProductController extends Controller
 
     //Receives the data for updating the product.
     public function setSetoreProduct(Request $request)
-    {   
+    {
         $id = $request->input('storeProductId');
         $price = $request->input('price');
         $storeId = $request->input('storeId');

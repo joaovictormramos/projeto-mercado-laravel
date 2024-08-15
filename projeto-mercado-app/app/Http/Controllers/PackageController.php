@@ -35,7 +35,7 @@ class PackageController extends Controller
     function formUpdatePackage($id)
     {
         $package = Package::find($id);
-        return view('/admin/update_package', compact('package'));
+        return view('/admin/register_package', compact('package'));
     }
 
     public function deletePackage($id)

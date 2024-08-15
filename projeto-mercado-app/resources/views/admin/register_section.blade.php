@@ -11,7 +11,7 @@
         @csrf
         
         <label for="name">Seção</label>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" value="{{$section->section_name}}" required>
 
         <button class="btn btn-primary">Cadastrar</button>
     </form>

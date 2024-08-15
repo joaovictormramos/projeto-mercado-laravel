@@ -17,7 +17,10 @@
                 {{$product->section_name}} R${{$product->product_price}}</h3>
             </a>
         </div>
+        <div>
+        </div>
     </div>
     @endforeach
+    <a href="/gerenciar-estoque/{{$id}}" class="btn btn-danger">Voltar</a>
 </body>
 </html>

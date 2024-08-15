@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Section;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SectionController extends Controller
 {
-    function getSections()
+    public function getSections()
     {
         $sections = Section::orderBy('section_name')->get();
         return view("/admin/sections", compact('sections'));
     }
 
-    function formRegisterSection()
+    public function formRegisterSection()
     {
         $section = new Section();
         $section->id = 0;
         return view("/admin/register_section", compact('section'));
     }
 
-    function registerSection(Request $request)
+    public function registerSection(Request $request)
     {
         if ($request->input('id') == 0) {
             $section = new Section();
@@ -32,10 +33,10 @@ class SectionController extends Controller
         return redirect('/secoes');
     }
 
-    function formUpdateSection($id)
+    public function formUpdateSection($id)
     {
         $section = Section::find($id);
-        return view('/admin/update_section', compact('section'));
+        return view('/admin/register_section', compact('section'));
     }
 
     public function deleteSection($id)

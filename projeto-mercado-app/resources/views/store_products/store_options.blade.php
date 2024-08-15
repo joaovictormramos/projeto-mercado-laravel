@@ -9,5 +9,6 @@
 <body>
     <a href="/adicionar-produto/{{$id}}" class="btn btn-primary">Adicionar produtos</a>
     <a href="/editar-produto-estabelecimento/{{$id}}" class="btn btn-primary">Editar produtos</a>
+    <a href="/estabelecimentos" class="btn btn-danger">Voltar</a>
 </body>
 </html>
